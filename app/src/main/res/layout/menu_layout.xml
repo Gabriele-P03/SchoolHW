@@ -1,0 +1,116 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:background="@drawable/border"
+        android:paddingVertical="5dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+
+    <!-- Add Homework -->
+    <ImageView
+            android:id="@+id/addHW"
+            android:src="@mipmap/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/addHWButton"
+            app:layout_constraintBottom_toBottomOf="@id/addHWButton"
+    />
+    <Button
+            android:id="@+id/addHWButton"
+            android:text="Add Homework"
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintLeft_toRightOf="@id/addHW"
+    />
+
+    <!-- Add Subject -->
+    <ImageView
+            android:id="@+id/addSubject"
+            android:src="@mipmap/add"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/addSubjectButton"
+            app:layout_constraintBottom_toBottomOf="@id/addSubjectButton"
+    />
+    <Button
+            android:id="@+id/addSubjectButton"
+            android:backgroundTint="@android:color/transparent"
+            android:text="Add Subject"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/addHWButton"
+            app:layout_constraintLeft_toRightOf="@id/addSubject"
+    />
+
+    <!-- List Subject -->
+    <ImageView
+            android:id="@+id/listSubject"
+            android:src="@mipmap/list"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintTop_toTopOf="@id/listSubjectButton"
+            app:layout_constraintBottom_toBottomOf="@id/listSubjectButton"
+    />
+    <Button
+            android:id="@+id/listSubjectButton"
+            android:backgroundTint="@android:color/transparent"
+            android:text="List Subject"
+            android:textColor="@color/white"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toBottomOf="@id/addSubjectButton"
+            app:layout_constraintLeft_toRightOf="@id/listSubject"
+    />
+
+    <!-- Settings -->
+    <ImageView
+            android:id="@+id/settings"
+            android:src="@mipmap/settings"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/settingsButton"
+            app:layout_constraintBottom_toBottomOf="@id/settingsButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <Button
+            android:id="@+id/settingsButton"
+            android:text="Settings"
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/settings"
+            app:layout_constraintTop_toBottomOf="@id/listSubjectButton"
+    />
+
+    <!-- Permissions -->
+    <ImageView
+            android:id="@+id/permission"
+            android:src="@mipmap/permission"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintTop_toTopOf="@id/permissionButton"
+            app:layout_constraintBottom_toBottomOf="@id/permissionButton"
+            app:layout_constraintLeft_toLeftOf="parent"
+    />
+    <Button
+            android:id="@+id/permissionButton"
+            android:text="Permissions"
+            android:textColor="@color/white"
+            android:backgroundTint="@android:color/transparent"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toRightOf="@id/permission"
+            app:layout_constraintTop_toBottomOf="@id/settingsButton"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -6,18 +6,25 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.ListAdapter;
 import android.widget.TextView;
+import androidx.annotation.LayoutRes;
 import com.schoolhw.R;
 
 public class DaysListAdapter extends BaseAdapter implements ListAdapter {
 
+    private Days[] days;
+
+    public DaysListAdapter(Days[] days) {
+        this.days = days;
+    }
+
     @Override
     public int getCount() {
-        return Days.values().length;
+        return this.days.length;
     }
 
     @Override
     public Object getItem(int i) {
-        return Days.values()[i];
+        return this.days[i];
     }
 
     @Override
@@ -30,10 +37,10 @@ public class DaysListAdapter extends BaseAdapter implements ListAdapter {
         View v = view;
 
         if( v == null){
-            v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.activity_subject, viewGroup, false);
+            v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.list_text_view, viewGroup, false);
         }
 
-        ((TextView)v.findViewById(R.id.item_hours_days)).setText(Days.values()[i].name);
+        ((TextView) v.findViewById(R.id.item_text_view)).setText(this.days[i].name);
 
         return v;
     }

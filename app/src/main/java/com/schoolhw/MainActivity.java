@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import android.widget.ImageButton;
 import android.widget.PopupWindow;
 import androidx.appcompat.app.AppCompatActivity;
+import com.schoolhw.list_view.homework.HomeworkActivity;
 import com.schoolhw.list_view.subject.ListSubjectActivity;
 import com.schoolhw.list_view.subject.Subject;
 import com.schoolhw.list_view.subject.SubjectActivity;
@@ -39,7 +40,7 @@ public class MainActivity extends AppCompatActivity {
             View popupView = layoutInflater.inflate(R.layout.menu_layout, null, false);
 
           //Add Homework Button
-            popupView.findViewById(R.id.addHWButton).setOnClickListener(v -> startActivity(null));
+            popupView.findViewById(R.id.addHWButton).setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), HomeworkActivity.class)));
             //Add Subject Button
             popupView.findViewById(R.id.addSubjectButton).setOnClickListener(v -> startActivity(new Intent(getApplicationContext(), SubjectActivity.class)));
             //List Subject Button
@@ -61,6 +62,15 @@ public class MainActivity extends AppCompatActivity {
 
         });
 
+    }
 
+    public static Subject[] getSubjectsArray(){
+        Subject[] subjects = new Subject[MainActivity.subjects.size()];
+
+        for(int i = 0; i < subjects.length; i++){
+            subjects[i] = MainActivity.subjects.get(i);
+        }
+
+        return subjects;
     }
 }

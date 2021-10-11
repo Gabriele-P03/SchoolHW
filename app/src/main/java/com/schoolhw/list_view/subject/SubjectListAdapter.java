@@ -16,11 +16,10 @@ import com.schoolhw.MainActivity;
 import com.schoolhw.R;
 import com.schoolhw.json.JSONObject;
 import com.schoolhw.json.JSONWriter;
-import com.schoolhw.list_view.subject.Subject;
 
 import java.io.IOException;
 
-public class SubjectListAdapter extends BaseAdapter implements ListAdapter {
+class SubjectListAdapter extends BaseAdapter implements ListAdapter {
 
     private Context context;
 

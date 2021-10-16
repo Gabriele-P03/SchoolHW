@@ -2,6 +2,7 @@ package com.schoolhw.list_view.homework;
 
 import android.app.DatePickerDialog;
 import android.os.Build;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.*;
 import androidx.annotation.RequiresApi;
@@ -12,6 +13,11 @@ import com.schoolhw.R;
 import com.schoolhw.list_view.days.Days;
 import com.schoolhw.list_view.subject.Subject;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Date;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 
@@ -48,6 +54,7 @@ public class HomeworkActivity extends AppCompatActivity {
         this.subjects.setOnItemClickListener((adapterView, view, i, l) -> {
             this.subjectSelected = (Subject) this.subjects.getItemAtPosition(i);
             this.setRightNextDay(LocalDate.now());
+            this.addHWButton.setBackgroundColor(this.subjectSelected.getColor());
         });
 
         this.picker.setOnDateChangedListener((datePicker, year, month, day) -> {
@@ -80,14 +87,63 @@ public class HomeworkActivity extends AppCompatActivity {
 
         this.addHWButton = findViewById(R.id.add_homework_button);
         this.addHWButton.setOnClickListener( v -> {
-            if(this.subjectSelected != null)
-                saveHomework(v, subjects);
+            try {
+                saveHomework(v);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         });
     }
 
     @RequiresApi(api = Build.VERSION_CODES.O)
-    private void saveHomework(View v, Subject[] subjects) {
+    private void saveHomework(View v) throws IOException {
 
+        //Check if a subject has been selected at least
+        if(this.subjectSelected != null) {
+
+            String hwNote = this.homework.getText().toString();
+            Date date = Date.valueOf(this.picker.getYear() + "-" + this.picker.getMonth() + "-" + this.picker.getDayOfMonth());
+            //Check if the homework note is not empty
+            if(hwNote != null && !hwNote.equals("")){
+                File folderSubject = new File(this.getApplicationContext().getFilesDir(), this.subjectSelected.getSubjectName());
+
+                if(!folderSubject.exists()){
+                    folderSubject.mkdir();
+                }else{
+                    if(folderSubject.isFile()){
+
+                        Toast.makeText(this.getApplicationContext(), this.subjectSelected.getSubjectName()
+                                + " should be a folder, but it is a file.\n I am gonna delete it and create a " +
+                                "folder", Toast.LENGTH_LONG).show();
+
+                        folderSubject.delete();
+                        folderSubject.mkdir();
+                    }
+                }
+
+
+                File homework = new File(folderSubject, date.toString() + ".txt");
+
+                if(homework.exists()){
+                    homework.delete();
+                }
+
+                homework.createNewFile();
+
+                FileOutputStream fos = new FileOutputStream(homework);
+                fos.write(hwNote.getBytes());
+                fos.flush();
+                fos.close();
+
+                MainActivity.homeworks.add(new HomeWork(
+                        this.subjectSelected,
+                        date,
+                        hwNote
+                ));
+
+            Toast.makeText(this.getApplicationContext(), "Homework saved", Toast.LENGTH_SHORT).show();
+            }
+        }
     }
 
     /**

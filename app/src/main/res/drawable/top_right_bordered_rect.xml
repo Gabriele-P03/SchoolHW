@@ -4,13 +4,12 @@
         xmlns:android="http://schemas.android.com/apk/res/android">
 
     <gradient
-            android:startColor="#444444"
-            android:endColor="#444444"
+        android:startColor="#aaaaaa"
+        android:endColor="#777777"
     />
 
-    <stroke
-        android:width="2dp"
-        android:color="@color/white"
+    <corners
+        android:topRightRadius="20dp"
     />
 
 </shape>

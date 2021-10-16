@@ -1,13 +1,19 @@
 package com.schoolhw;
 
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.PopupWindow;
+import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
+import com.schoolhw.list_view.homework.HomeWork;
+import com.schoolhw.list_view.homework.HomeWorkListAdapter;
 import com.schoolhw.list_view.homework.HomeworkActivity;
 import com.schoolhw.list_view.subject.ListSubjectActivity;
 import com.schoolhw.list_view.subject.Subject;
@@ -19,19 +25,22 @@ public class MainActivity extends AppCompatActivity {
 
     public static Settings settings;
     public static ArrayList<Subject> subjects;
+    public static ArrayList<HomeWork> homeworks;
 
+    private ListView hwListView;
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-        //Loading Activity
-        startActivity(new Intent(this.getApplicationContext(), LoadActivity.class));
         //Setting menu's buttons
-        this.setButtons();
+        this.loadComponents();
     }
 
-    private void setButtons(){
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void loadComponents(){
         ImageButton menu = findViewById(R.id.menuButton);
         menu.setOnClickListener(view -> {
 
@@ -59,8 +68,10 @@ public class MainActivity extends AppCompatActivity {
             View viewDivider = findViewById(R.id.dividerMain);
             final PopupWindow popupWindow = new PopupWindow(popupView, ViewGroup.LayoutParams.WRAP_CONTENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
             popupWindow.showAsDropDown(viewDivider, 0, viewDivider.getHeight());
-
         });
+        //Setting homework list adapter
+        hwListView = this.findViewById(R.id.list_list_homework);
+        hwListView.setAdapter(new HomeWorkListAdapter(this.getApplicationContext()));
 
     }
 
@@ -72,5 +83,11 @@ public class MainActivity extends AppCompatActivity {
         }
 
         return subjects;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        ((HomeWorkListAdapter)this.hwListView.getAdapter()).notifyDataSetChanged();
     }
 }

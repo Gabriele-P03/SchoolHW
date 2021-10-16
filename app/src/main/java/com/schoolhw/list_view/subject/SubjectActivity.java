@@ -13,6 +13,7 @@ import com.schoolhw.json.JSONReader;
 import com.schoolhw.json.JSONWriter;
 import com.schoolhw.list_view.days.Days;
 
+import java.io.File;
 import java.io.IOException;
 
 public class SubjectActivity extends AppCompatActivity {
@@ -82,10 +83,11 @@ public class SubjectActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.KITKAT)
     private void registerNewSubject(){
 
-        if(this.subjectName.getText().toString() != null){
+        String subjectName = this.subjectName.getText().toString();
+        if(subjectName != null){
             if(this.days.getCheckedItemPositions().size() > 0){
                     Subject subject = new Subject(
-                            this.subjectName.getText().toString(),
+                            subjectName,
                             this.getDaysSelected(),
                             this.getColor()
                     );
@@ -104,6 +106,22 @@ public class SubjectActivity extends AppCompatActivity {
                         jsonWriter.close();
 
                         MainActivity.subjects.add(subject);
+
+                        File folderSubject = new File(this.getApplicationContext().getFilesDir(), subjectName);
+
+                        if(!folderSubject.exists()){
+                            folderSubject.mkdir();
+                        }else{
+                            if(folderSubject.isFile()){
+
+                                Toast.makeText(this.getApplicationContext(), subjectName
+                                        + " should be a folder, but it is a file.\n I am gonna delete it and create a " +
+                                        "folder", Toast.LENGTH_LONG).show();
+
+                                folderSubject.delete();
+                                folderSubject.mkdir();
+                            }
+                        }
 
                         Toast.makeText(getApplicationContext(), "Subject registered successfully", Toast.LENGTH_SHORT).show();
                     } catch (IOException e) {

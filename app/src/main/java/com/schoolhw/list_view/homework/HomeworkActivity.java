@@ -123,25 +123,40 @@ public class HomeworkActivity extends AppCompatActivity {
 
 
                 File homework = new File(folderSubject, date.toString() + ".txt");
+                boolean flag = true;
 
                 if(homework.exists()){
-                    homework.delete();
+                    Toast.makeText( this.getApplicationContext(),
+                                subjectSelected.getSubjectName() + "'s homework already present at " + date.toString() + "\nI'm gonna append this...",
+                                    Toast.LENGTH_LONG)
+                            .show();
+
+                    flag = false;
+                }else {
+                    homework.createNewFile();
                 }
 
-                homework.createNewFile();
-
-                FileOutputStream fos = new FileOutputStream(homework);
+                FileOutputStream fos = new FileOutputStream(homework, true);
                 fos.write(hwNote.getBytes());
                 fos.flush();
                 fos.close();
 
-                MainActivity.homeworks.add(new HomeWork(
-                        this.subjectSelected,
-                        date,
-                        hwNote
-                ));
+                if(flag) {
+                    MainActivity.homeworks.add(new HomeWork(
+                            this.subjectSelected,
+                            date,
+                            hwNote
+                    ));
+                }else{
+                    //Means that a homework of that subject is already present.
+                    //Without restart app in order to update all homework, it's gonna editing now
 
-            Toast.makeText(this.getApplicationContext(), "Homework saved", Toast.LENGTH_SHORT).show();
+                    MainActivity.homeworks.stream()
+                            .filter(hw -> (hw.getDate().compareTo(date) == 0 && hw.getSubject().equals(subjectSelected)))
+                            .findFirst().ifPresent(hw1 -> hw1.setNote(hw1.getNote() + "\n" + hwNote));
+                }
+
+                Toast.makeText(this.getApplicationContext(), "Homework saved", Toast.LENGTH_SHORT).show();
             }
         }
     }

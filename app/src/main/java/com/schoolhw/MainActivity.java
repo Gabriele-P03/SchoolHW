@@ -20,6 +20,7 @@ import com.schoolhw.list_view.subject.Subject;
 import com.schoolhw.list_view.subject.SubjectActivity;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 
 public class MainActivity extends AppCompatActivity {
 
@@ -70,9 +71,8 @@ public class MainActivity extends AppCompatActivity {
             popupWindow.showAsDropDown(viewDivider, 0, viewDivider.getHeight());
         });
         //Setting homework list adapter
-        hwListView = this.findViewById(R.id.list_list_homework);
+        hwListView = this.findViewById(R.id.list_homework);
         hwListView.setAdapter(new HomeWorkListAdapter(this.getApplicationContext()));
-
     }
 
     public static Subject[] getSubjectsArray(){
@@ -85,9 +85,11 @@ public class MainActivity extends AppCompatActivity {
         return subjects;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onResume() {
         super.onResume();
-        ((HomeWorkListAdapter)this.hwListView.getAdapter()).notifyDataSetChanged();
+        ((HomeWorkListAdapter)this.hwListView.getAdapter()).order();
+        ((HomeWorkListAdapter) this.hwListView.getAdapter()).notifyDataSetChanged();
     }
 }

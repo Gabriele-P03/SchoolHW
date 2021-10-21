@@ -74,9 +74,9 @@ public class SubjectActivity extends AppCompatActivity {
 
     private int getColor(){
         return ((0xff) << 24) |
-                ( (this.red.getProgress() &0xff) << 16) |
-                ( (this.green.getProgress() & 0xff) << 8) |
-                (this.blue.getProgress() & 0xff);
+                ( ( (int)(this.red.getProgress()*2.55) &0xff) << 16) |
+                ( ( (int)(this.green.getProgress()*2.55) & 0xff) << 8) |
+                ( (int)(this.blue.getProgress()*2.55) & 0xff);
     }
 
 

@@ -16,20 +16,27 @@
             android:layout_height="wrap_content"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintBottom_toTopOf="@id/daysSelector"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
     />
 
 
     <ListView
-            android:background="#777700"
+            android:background="#888888"
             android:foregroundGravity="center_horizontal"
             android:layout_marginTop="10dp"
             android:id="@+id/daysSelector"
             app:layout_constraintHorizontal_weight="1"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
             app:layout_constraintLeft_toLeftOf="parent"
             app:layout_constraintRight_toRightOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/addSubjectName"
+            app:layout_constraintBottom_toTopOf="@id/red_bar"
+            android:layout_marginBottom="20dp"
     />
 
 

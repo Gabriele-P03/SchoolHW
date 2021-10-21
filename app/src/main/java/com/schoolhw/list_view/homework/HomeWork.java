@@ -40,6 +40,6 @@ public class HomeWork {
 
     @Override
     public String toString() {
-        return this.subject.getSubjectName() + " - " + this.date.toString() + ":\n" + this.note;
+        return this.date.toString() + " - " + this.subject.getSubjectName() + ":\n" + this.note;
     }
 }

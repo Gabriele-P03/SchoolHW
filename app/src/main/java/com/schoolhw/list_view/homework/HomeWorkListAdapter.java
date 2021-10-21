@@ -1,9 +1,12 @@
 package com.schoolhw.list_view.homework;
 
+import android.content.ClipData;
+import android.content.ClipboardManager;
 import android.content.Context;
 import android.graphics.PorterDuff;
 import android.graphics.drawable.Drawable;
 import android.os.Build;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,7 +33,11 @@ public class HomeWorkListAdapter extends BaseAdapter implements ListAdapter {
 
     @RequiresApi(api = Build.VERSION_CODES.N)
     public void order() {
-        Collections.sort(MainActivity.homeworks, Comparator.comparing(HomeWork::getDate));
+        if(MainActivity.homeworks != null) {
+            if (MainActivity.subjects.size() > 0) {
+                Collections.sort(MainActivity.homeworks, Comparator.comparing(HomeWork::getDate));
+            }
+        }
     }
 
     @Override
@@ -92,11 +99,42 @@ public class HomeWorkListAdapter extends BaseAdapter implements ListAdapter {
             v.findViewById(R.id.border_rect_hw).setBackground(d);
 
             //Setting delete button
-            v.findViewById(R.id.delete_homework_button).setOnClickListener(v1 -> this.deleteHW(i));
+            v.findViewById(R.id.delete_homework_button).setOnClickListener(v1 -> this.deletingPopup(i, v1));
+
+            v.setOnClickListener(v1 -> copyOnClipboard(i));
         }
 
         return v;
     }
+
+    private void copyOnClipboard(int i) {
+
+        ClipboardManager cm = (ClipboardManager) this.context.getSystemService(Context.CLIPBOARD_SERVICE);
+        cm.setPrimaryClip(ClipData.newPlainText("Homework copied", MainActivity.homeworks.get(i).toString()));
+        Toast.makeText(this.context, "Homework copied", Toast.LENGTH_SHORT).show();
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.N)
+    private void deletingPopup(int index, View view) {
+
+        LayoutInflater inflater = (LayoutInflater) this.context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        View popupView = inflater.inflate(R.layout.confirm_deleting_popup, null);
+
+        final PopupWindow popupWindow[] = new PopupWindow[1];
+
+        HomeWork hw = MainActivity.homeworks.get(index);
+
+        ((TextView)popupView.findViewById(R.id.confirm_deleting_tv)).setText("Deleting:\n " + hw.getDate() + " - " + hw.getSubject().getSubjectName() + "\n" + hw.getNote());
+        popupView.findViewById(R.id.cancel_deleting_button).setOnClickListener( v -> popupWindow[0].dismiss());
+        popupView.findViewById(R.id.confirm_deleting_button).setOnClickListener(v -> {
+            this.deleteHW(index);
+            popupWindow[0].dismiss();
+        });
+
+        popupWindow[0] = new PopupWindow(popupView, ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT, true);
+        popupWindow[0].showAtLocation(view, Gravity.CENTER, 0, 0);
+    }
+
 
     /**
      * @param i

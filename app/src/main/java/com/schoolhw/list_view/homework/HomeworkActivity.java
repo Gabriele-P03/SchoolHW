@@ -150,7 +150,6 @@ public class HomeworkActivity extends AppCompatActivity {
                 }else{
                     //Means that a homework of that subject is already present.
                     //Without restart app in order to update all homework, it's gonna editing now
-
                     MainActivity.homeworks.stream()
                             .filter(hw -> (hw.getDate().compareTo(date) == 0 && hw.getSubject().equals(subjectSelected)))
                             .findFirst().ifPresent(hw1 -> hw1.setNote(hw1.getNote() + "\n" + hwNote));
@@ -167,9 +166,7 @@ public class HomeworkActivity extends AppCompatActivity {
      */
     @RequiresApi(api = Build.VERSION_CODES.O)
     private void setRightNextDay(LocalDate selectedDay){
-
         selectedDay = selectedDay.plusDays(this.daysToJump(selectedDay));
-
         this.updateBufferDate(selectedDay.getYear(), selectedDay.getMonth().getValue()-1, selectedDay.getDayOfMonth());
     }
 

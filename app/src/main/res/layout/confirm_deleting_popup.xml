@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#999999"
+        android:layout_marginRight="50dp"
+        android:layout_marginLeft="50dp"
+        xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <TextView
+            android:textColor="#000000"
+            android:id="@+id/confirm_deleting_tv"
+            android:gravity="center_horizontal"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+    />
+
+    <Button
+            android:textColor="@color/black"
+            android:id="@+id/confirm_deleting_button"
+            android:backgroundTint="@android:color/transparent"
+            android:text="OK"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:layout_constraintRight_toLeftOf="@id/cancel_deleting_button"
+            app:layout_constraintLeft_toLeftOf="@id/confirm_deleting_tv"
+            app:layout_constraintTop_toBottomOf="@id/confirm_deleting_tv"
+            android:layout_marginRight="20dp"
+    />
+
+    <Button
+            android:textColor="@color/black"
+            android:id="@+id/cancel_deleting_button"
+            android:backgroundTint="@android:color/transparent"
+            android:text="DISMISS"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:layout_marginLeft="20dp"
+            app:layout_constraintRight_toRightOf="@id/confirm_deleting_tv"
+            app:layout_constraintLeft_toRightOf="@id/confirm_deleting_button"
+            app:layout_constraintTop_toBottomOf="@id/confirm_deleting_tv"
+    />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

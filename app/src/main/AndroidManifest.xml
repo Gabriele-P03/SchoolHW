@@ -11,14 +11,24 @@
             android:roundIcon="@mipmap/ic_launcher_round"
             android:supportsRtl="true"
             android:theme="@style/Theme.SchoolHW">
-        <activity android:name=".list_view.homework.HomeworkActivity">
+
+        <activity
+                android:name=".list_view.homework.HomeworkActivity"
+                android:windowSoftInputMode="adjustPan"
+                android:theme="@style/Theme.SchoolHW.NoActionBar">
         </activity>
-        <activity android:name=".list_view.subject.ListSubjectActivity">
+
+        <activity
+                android:name=".list_view.subject.ListSubjectActivity"
+                android:theme="@style/Theme.SchoolHW.NoActionBar">
         </activity>
+
         <activity
                 android:name=".list_view.subject.SubjectActivity"
-                android:windowSoftInputMode="adjustPan">
+                android:windowSoftInputMode="adjustPan"
+                android:theme="@style/Theme.SchoolHW.NoActionBar">
         </activity>
+
         <activity android:name=".LoadActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
